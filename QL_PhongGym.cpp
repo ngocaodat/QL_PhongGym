@@ -172,22 +172,38 @@ void xuatds(quanlyGym gym[], int n){
 		gym[i].xuat();
 	}
 }
+// sap xep tong tien tang dan
+void sapxep(quanlyGym gym[], int n){
+	goitap gt;
+	quanlyGym tg;
+	for(int i=0;i<n;i++){
+		for(int j=i+1;j<n;j++){
+			if(gym[i].gt.get_tongtien()>gym[j].gt.get_tongtien())
+				tg=gym[i];
+				gym[i]=gym[j];
+				gym[j]=tg;
+		}
+	}
+	cout<<"\nTong tien tang dan khach hang:"<<endl;
+	xuatds(gym,n);
+}
 //tim kiesm khach h�ng theo m�
 void timkiem(quanlyGym gym[], int n){
 	int x;
 	khachhang kh;
 	int count=0;
+	//tieu de
 	cout<<"\nNhap ma khach hang can tim: ";cin>>x;
 	cout<<"\nMaKH"<<setw(9)<<"TenKH"<<setw(11)<<"NgaySinh"<<setw(13)<<"QueQuan"<<setw(10)<<"SDT"<<setw(10);
 	cout<<"Goidky"<<setw(10)<<"Ngaydky"<<setw(10)<<"Handky"<<setw(10);
 	cout<<"Phigoitap"<<setw(10)<<"Phidichvu"<<setw(10)<<"Tongtien"<<setw(10);
 	for(int i=0;i<n;i++){
-		if(gym[i].kh.get_makh()==x){
-			gym[i].xuat();
+		if(gym[i].kh.get_makh()==x){//kiem tra ma khach hang co = ma khach hang nguoi dung nhap hay khong
+			gym[i].xuat();//= thi xuat ra thong tin co makh()
 			count++;
 		}
 	}
-	if(count==0){
+	if(count==0){//# thi xuat ra ben duoi
 		cout<<"\nKhong tim thay du lieu ban nhap";
 	}
 }
@@ -196,12 +212,13 @@ void timkiemten(quanlyGym gym[], int n){
 	string ten;
 	khachhang kh;
 	int count=0;
+	//tieu de
 	cout<<"\nNhap ten khach hang can tim: ";fflush(stdin);getline(cin,ten);
 	cout<<"\nMaKH"<<setw(9)<<"TenKH"<<setw(11)<<"NgaySinh"<<setw(13)<<"QueQuan"<<setw(10)<<"SDT"<<setw(10);
 	cout<<"Goidky"<<setw(10)<<"Ngaydky"<<setw(10)<<"Handky"<<setw(10);
 	cout<<"Phigoitap"<<setw(10)<<"Phidichvu"<<setw(10)<<"Tongtien"<<setw(10);
 	for(int i=0;i<n;i++){
-		if(gym[i].kh.get_tenkh()==ten){
+		if(gym[i].kh.get_tenkh()==ten){//kiem tra ten khach hang co = ten nguoi dung nhap khong.
 			gym[i].xuat();
 			count++;
 		}
@@ -221,7 +238,7 @@ void tongtienMax(quanlyGym gym[], int n){
 	}
 	cout<<"\nKhach hang co chi phi cao nhat la:"<<max<<endl;
 }
-//Sua thong tin sinh vien
+//Sua thong tin nhan vien
 void suatt(quanlyGym gym[], int n){
 	int sua;
 	int count=0;
@@ -291,7 +308,8 @@ void menu(quanlyGym gym[], int n){
 		cout<<"==        7.Sua thong tin khach hang.                  ==\n";
 		cout<<"==        8.Xoa thong tin khach hang.                  ==\n";
 		cout<<"==        9.Them thong tin khach hang.                 ==\n";
-		cout<<"==        10.Exit                                      ==\n";
+		cout<<"==        10.Sap xap tong tien khach hang tang dan.    ==\n";
+		cout<<"==        11.Exit                                      ==\n";
 		cout<<"=========================================================\n";
 	    cout<<" \t Nhap lua chon cua ban: ";cin>>choice;
 	    switch(choice){
@@ -341,6 +359,11 @@ void menu(quanlyGym gym[], int n){
 	    		system("pause");
 	    		break;
 	    	case 10:
+	    		sapxep(gym,n);
+	    		cout<<endl;
+	    		system("pause");
+	    		break;
+	    	case 11:
 	    		exit(0);
 	    		break;
 	    	default:
